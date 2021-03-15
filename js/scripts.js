@@ -44,6 +44,7 @@ const questionsArray = [
 let counter = 0;
 
 let option = document.querySelectorAll('input[type=radio]');
+// let submitButton = document.querySelectorAll('.button')
 
 function checkAnswer() {
   option.forEach((item) => {
@@ -61,9 +62,9 @@ checkAnswer(questionsArray);
 const showResults = () => {
   const answerContainers = document.querySelectorAll('.answer');
   let numCorrect = 0;
-  questions.forEach( (currentQuestion, questionNumber) => {
+  questionsArray.forEach( (currentQuestion, questionNumber) => {
     const answerContainer = answerContainers[questionNumber];
-    const selector = `input[name=question${number}]:checked`;
+    const selector = `input[name=question${questionsArray[int].number}]:checked`;
     const userAnswer = (answerContainer.querySelector(selector) || {}).value
     if(userAnswer === currentQuestion.correctAnswer){
       numCorrect++;
@@ -71,9 +72,9 @@ const showResults = () => {
   });
 }
 
-submitButton.addEventListener('click', () => {
-  showResults();
-});
+// submitButton.addEventListener('click', () => {
+  // showResults();
+// });
 
 function showSlide(int) {
   let slide = document.querySelector('.slide');
