@@ -1,13 +1,11 @@
-let num;
-
 const questionsArray = [
   {
     number: 1,
     question: 'Назовите столицу Турции',
     answer: [
-      '<input type="radio" class="answer">Анталья',
-      '<input type="radio" class="answer">Анкара',
-      '<input type="radio" class="answer">Стамбул'
+      '<input type="radio" name="answer" id="opt1" value="Анталья" class="answer"><label for="opt1">Анталья</label>',
+      '<input type="radio" name="answer" id="opt2" value="Анкара" class="answer"><label for="opt2">Анкара</label>',
+      '<input type="radio" name="answer" id="opt3" value="Стамбул" class="answer"><label for="opt3">Стамбул</label>'
     ],
     correctAnswer: 'Анкара'
   },
@@ -15,9 +13,9 @@ const questionsArray = [
     number: 2,
     question: 'Назовите самую северную столицу мира',
     answer: [
-      '<input type="radio" class="answer">Рейкьявик',
-      '<input type="radio" class="answer">Копенгаген',
-      '<input type="radio" class="answer">Стокгольм'
+      '<input type="radio" name="answer" id="opt1" value="Рейкьявик" class="answer"><label for="opt1">Рейкьявик</label>',
+      '<input type="radio" name="answer" id="opt2" value="Копенгаген" class="answer"><label for="opt2">Копенгаген</label>',
+      '<input type="radio" name="answer" id="opt3" value="Стокгольм" class="answer"><label for="opt3">Стокгольм</label>'
     ],
     correctAnswer: 'Рейкьявик'
   },
@@ -25,9 +23,9 @@ const questionsArray = [
     number: 3,
     question: 'Осло - стоица какой страны?',
     answer: [
-      '<input type="radio" class="answer">Финляндия',
-      '<input type="radio" class="answer">Норвегия',
-      '<input type="radio" class="answer">Дания'
+      '<input type="radio" name="answer" id="opt1" value="Финляндия" class="answer"><label for="opt1">Финляндия</label>',
+      '<input type="radio" name="answer" id="opt2" value="Норвегия" class="answer"><label for="opt2">Норвегия</label>',
+      '<input type="radio" name="answer" id="opt3" value="Дания" class="answer"><label for="opt3">Дания</label>'
     ],
     correctAnswer: 'Норвегия'
   },
@@ -35,13 +33,47 @@ const questionsArray = [
     number: 4,
     question: 'Какой из городов не является столицей?',
     answer: [
-      '<input type="radio" class="answer">Хельсинки',
-      '<input type="radio" class="answer">Гамбург',
-      '<input type="radio" class="answer">Скопье'
+      '<input type="radio" name="answer" id="opt1" value="Хельсинки" class="answer"><label for="opt1">Хельсинки</label>',
+      '<input type="radio" name="answer" id="opt2" value="Гамбург" class="answer"><label for="opt2">Гамбург</label>',
+      '<input type="radio" name="answer" id="opt3" value="Скопье" class="answer"><label for="opt3">Скопье</label>'
     ],
     correctAnswer: 'Гамбург'
   }
 ];
+
+let counter = 0;
+
+let option = document.querySelectorAll('input[type=radio]');
+
+function checkAnswer() {
+  option.forEach((item) => {
+    let userAnswer = item.addEventListener('click');
+    if (userAnswer === item.value) {
+      counter++;
+      console.log(counter);
+      }
+    })
+}
+
+checkAnswer(questionsArray);
+
+//попытка вывести результат по коду из конспекта
+const showResults = () => {
+  const answerContainers = document.querySelectorAll('.answer');
+  let numCorrect = 0;
+  questions.forEach( (currentQuestion, questionNumber) => {
+    const answerContainer = answerContainers[questionNumber];
+    const selector = `input[name=question${number}]:checked`;
+    const userAnswer = (answerContainer.querySelector(selector) || {}).value
+    if(userAnswer === currentQuestion.correctAnswer){
+      numCorrect++;
+    }
+  });
+}
+
+submitButton.addEventListener('click', () => {
+  showResults();
+});
 
 function showSlide(int) {
   let slide = document.querySelector('.slide');
@@ -66,6 +98,39 @@ function changeSlide() {
 }
 
 changeSlide();
+
+//это попытки перепечатать код из урока и понять, как он работает
+// if (index === 0) {
+//   previousButton.style.display = 'none';
+// } else {
+//   previousButton.style.display = 'inline-block';
+// }
+//
+// if (index === slides.lengh - 1) {
+//   nextButton.style.display = 'none';
+//   submitButton.style.display = 'inline-block';
+// } else {
+//   nextButton.style.display = 'inline-block';
+//   submitButton.style.display = 'none';
+// }
+//
+// const showResults = () => {
+//   const answerContainers = document.querySelectorAll('.answer');
+//   let numCorrect = 0;
+//   questions.forEach( (currentQuestion, questionNumber) => {
+//     const answerContainer = answerContainers[questionNumber];
+//     const selector = `input[name=question${number}]:checked`;
+//     const userAnswer = (answerContainer.querySelector(selector) || {}).value
+//     if(userAnswer === currentQuestion.correctAnswer){
+//       numCorrect++;
+//     }
+//   });
+// }
+//
+// submitButton.addEventListener('click', () => {
+//   showResults();
+// });
+
 // function quiz(array) {
 //   let score = 0;
   // let p = document.querySelector('.answer');
