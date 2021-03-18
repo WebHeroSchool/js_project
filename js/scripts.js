@@ -43,48 +43,18 @@ const questionsArray = [
 
 let counter = 0;
 
-let option = document.querySelectorAll('input[type=radio]');
-// let submitButton = document.querySelectorAll('.button')
-
-function checkAnswer() {
-  option.forEach((item) => {
-    let userAnswer = item.addEventListener('click');
-    if (userAnswer === item.value) {
-      counter++;
-      console.log(counter);
-      }
-    })
-}
-
-checkAnswer(questionsArray);
-
-//попытка вывести результат по коду из конспекта
-const showResults = () => {
-  const answerContainers = document.querySelectorAll('.answer');
-  let numCorrect = 0;
-  questionsArray.forEach( (currentQuestion, questionNumber) => {
-    const answerContainer = answerContainers[questionNumber];
-    const selector = `input[name=question${questionsArray[int].number}]:checked`;
-    const userAnswer = (answerContainer.querySelector(selector) || {}).value
-    if(userAnswer === currentQuestion.correctAnswer){
-      numCorrect++;
-    }
-  });
-}
-
-// submitButton.addEventListener('click', () => {
-  // showResults();
-// });
-
+//Вывод слайдов
 function showSlide(int) {
   let slide = document.querySelector('.slide');
-  slide.innerHTML = `<p class="title">Вопрос ${questionsArray[int].number}</p><div class="question">${questionsArray[int].question}</div><div class="answer">${questionsArray[int].answer}</div>`;
+  slide.innerHTML = `<p class="title">Вопрос ${questionsArray[int].number}</p>
+                     <div class="question">${questionsArray[int].question}</div>
+                     <div class="answer">${questionsArray[int].answer}</div>`;
   console.log(questionsArray[int].number);
 }
 
 function changeSlide() {
   let submitButton = document.querySelectorAll('.button'),
-    index = 0;
+  index = 0;
   showSlide(index);
   submitButton.forEach((item) => {
     item.addEventListener('click', () => {
@@ -97,10 +67,8 @@ function changeSlide() {
     });
   });
 }
-
 changeSlide();
-
-//это попытки перепечатать код из урока и понять, как он работает
+//Код из конспекта, не разобралась, как применить
 // if (index === 0) {
 //   previousButton.style.display = 'none';
 // } else {
@@ -114,7 +82,40 @@ changeSlide();
 //   nextButton.style.display = 'inline-block';
 //   submitButton.style.display = 'none';
 // }
-//
+
+
+const checkAnswer = () => {
+  const answerContainers = document.querySelectorAll('.answer');
+
+  questionsArray.question.forEach(() => {
+    const answerContainer = answerContainers[number];
+    const selector = `input[name=question${number}]:checked`;
+    const userAnswer = (answerContainer.querySelector() || {}).value
+    if (userAnswer === questionsArray.correctAnswer) {
+    counter++;
+      }
+    })
+}
+checkAnswer();
+
+const showResults = () => {
+  const answerContainers = document.querySelectorAll('.answer');
+  let numCorrect = 0;
+  questionsArray.forEach( (currentQuestion, questionNumber) => {
+    const answerContainer = answerContainers[questionNumber];
+    const selector = `input[name=question${questionsArray[int].number}]:checked`;
+    const userAnswer = (answerContainer.querySelector(selector) || {}).value
+    if(userAnswer === currentQuestion.correctAnswer){
+      numCorrect++;
+    }
+  });
+}
+
+
+
+//это попытки перепечатать код из урока и понять, как он работает
+
+// //
 // const showResults = () => {
 //   const answerContainers = document.querySelectorAll('.answer');
 //   let numCorrect = 0;
@@ -127,9 +128,9 @@ changeSlide();
 //     }
 //   });
 // }
-//
-// submitButton.addEventListener('click', () => {
-//   showResults();
+// //
+// // submitButton.addEventListener('click', () => {
+// //   showResults();
 // });
 
 // function quiz(array) {
