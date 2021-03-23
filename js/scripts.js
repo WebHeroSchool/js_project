@@ -109,9 +109,12 @@ if(tar.tagName === 'INPUT') {
       tar.parentNode.style.color = 'red';
     }
     const radioButtons = e.currentTarget.querySelectorAll('.answer, input');
-    radioButtons.forEach(button => button.setAttribute('disabled', true))
+    radioButtons.forEach(button => button.setAttribute('disabled', 'disable'))
+    console.log(radioButtons);
   }
  }
+
+
 
  const setAnswerHandlers = () => {
    Array.from(quizContainer.querySelectorAll('.slide .answers')).forEach(answer => {
