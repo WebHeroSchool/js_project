@@ -10,6 +10,7 @@ body {
 .question {
   display: flex;
   justify-content: center;
+  text-align: center;
   background: white;
   opacity: .8;
   font-size: 70px;
@@ -32,7 +33,6 @@ answer {
 .wrap-btn {
   display: flex;
   justify-content: center;
-  padding-top: 210px;
 }
 
 .button_previous, .button_next, .button_results {
@@ -68,7 +68,49 @@ input[type='radio'] {
   opacity: 0.8;
 }
 
-.slide{
+@media (max-width: 767px) {
+  .question {
+    font-size: 40px;
+  }
+
+  .answers {
+    font-size: 30px;
+  }
+
+  .results {
+    font-size: 20px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1258px) {
+  .question {
+    font-size: 50px;
+  }
+
+  .answers {
+    font-size: 40px;
+  }
+
+  .results {
+    font-size: 30px;
+  }
+}
+
+@media (min-width: 1259px) and (max-width: 1759px) {
+  .question {
+    font-size: 60px;
+  }
+
+  .answers {
+    font-size: 50px;
+  }
+
+  .results {
+    font-size: 40px;
+  }
+}
+
+.slide {
   position: absolute;
   left: 0;
   top: 0;
@@ -87,4 +129,5 @@ input[type='radio'] {
   position: relative;
   height: 200px;
   margin-top: 40px;
+  margin-bottom: 300px;
 }
