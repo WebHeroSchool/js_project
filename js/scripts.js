@@ -5,7 +5,7 @@ const myQuestions = [
     answers: {
       a: 'Анталья',
       b: 'Анкара',
-      c: 'Станбул'
+      c: 'Стамбул'
     },
     correctAnswer: 'b'
   },
@@ -96,6 +96,7 @@ function showSlide(n) {
     submitButton.style.display = 'none';
   }
 }
+
 const checkResults = (e) => {
 const tar = e.target;
 if(tar.tagName === 'INPUT') {
@@ -113,8 +114,6 @@ if(tar.tagName === 'INPUT') {
     console.log(radioButtons);
   }
  }
-
-
 
  const setAnswerHandlers = () => {
    Array.from(quizContainer.querySelectorAll('.slide .answers')).forEach(answer => {
@@ -138,5 +137,9 @@ previousButton.addEventListener('click', showPreviousSlide);
 nextButton.addEventListener('click', showNextSlide);
 
 function showResults() {
-  resultsContainer.innerHTML = `Ваш результат ${numCorrect} из ${myQuestions.length}`}
+  resultsContainer.innerHTML = `Ваш результат ${numCorrect} из ${myQuestions.length}`
+  nextButton.style.display = 'none';
+  previousButton.style.display = 'none';
+  submitButton.style.display = 'none';
+}
   submitButton.addEventListener('click', showResults);
