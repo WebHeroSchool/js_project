@@ -41,6 +41,8 @@ const myQuestions = [
   }
 ];
 
+
+
 let quizContainer = document.querySelector('.quiz');
 let resultsContainer = document.querySelector('.results');
 let submitButton = document.querySelector('.button_results');
@@ -71,8 +73,27 @@ function buildQuiz() {
 );
   quizContainer.innerHTML = output.join('');
 };
+// buildQuiz();
 
-buildQuiz();
+function addUserName() {
+  let nameForm = document.querySelector('.start-slide');
+  let buttonsNav = document.querySelector('.wrap-btn');
+
+  nameForm.innerHTML = `<form action="#" class="form">
+                          <input type="text" name="name" placeholder="Ваше имя" required />
+                          <button type="submit" class='send-button'>Отправить</button>
+                        </form>`;
+  quizContainer.style.display = 'none';
+  buttonsNav.style.display = 'none';
+}
+
+addUserName();
+
+let sendButton = document.querySelector('.send-button');
+sendButton.addEventListener('click', buildQuiz);
+
+
+
 
 const previousButton = document.querySelector('.button_previous');
 const nextButton = document.querySelector('.button_next');
@@ -96,7 +117,6 @@ function showSlide(n) {
     submitButton.style.display = 'none';
   }
 }
-
 const checkResults = (e) => {
 const tar = e.target;
 if(tar.tagName === 'INPUT') {
@@ -114,6 +134,8 @@ if(tar.tagName === 'INPUT') {
     console.log(radioButtons);
   }
  }
+
+
 
  const setAnswerHandlers = () => {
    Array.from(quizContainer.querySelectorAll('.slide .answers')).forEach(answer => {
@@ -137,9 +159,8 @@ previousButton.addEventListener('click', showPreviousSlide);
 nextButton.addEventListener('click', showNextSlide);
 
 function showResults() {
-  resultsContainer.innerHTML = `Ваш результат ${numCorrect} из ${myQuestions.length}`
-  nextButton.style.display = 'none';
   previousButton.style.display = 'none';
+  nextButton.style.display = 'none';
   submitButton.style.display = 'none';
-}
+  resultsContainer.innerHTML = `Ваш результат ${numCorrect} из ${myQuestions.length}`}
   submitButton.addEventListener('click', showResults);
