@@ -7,6 +7,28 @@ body {
 
 }
 
+.error {
+  border: 1px solid red;
+}
+
+.error-block {
+  color: red;
+  background: white;
+  opacity: 0.7;
+  width: 10%;
+}
+
+.send-button {
+  font-family: 'Work Sans', sans-serif;
+  padding: 8px 25px;
+  background: white;
+  opacity: 0.7;
+}
+
+.user-name {
+  padding: 8px 25px;
+}
+
 .question {
   display: flex;
   justify-content: center;

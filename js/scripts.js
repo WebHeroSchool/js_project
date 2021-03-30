@@ -41,8 +41,6 @@ const myQuestions = [
   }
 ];
 
-
-
 let quizContainer = document.querySelector('.quiz');
 let resultsContainer = document.querySelector('.results');
 let submitButton = document.querySelector('.button_results');
@@ -73,25 +71,47 @@ function buildQuiz() {
 );
   quizContainer.innerHTML = output.join('');
 };
-// buildQuiz();
+buildQuiz();
+
+let nameForm = document.querySelector('.name-form');
+let sendButton = document.querySelector('.send-button');
+let userName = document.querySelector('.user-name');
+let buttonsNav = document.querySelector('.wrap-btn');
 
 function addUserName() {
-  let nameForm = document.querySelector('.start-slide');
-  let buttonsNav = document.querySelector('.wrap-btn');
-
-  nameForm.innerHTML = `<form action="#" class="form">
-                          <input type="text" name="name" placeholder="Ваше имя" required />
-                          <button type="submit" class='send-button'>Отправить</button>
-                        </form>`;
   quizContainer.style.display = 'none';
   buttonsNav.style.display = 'none';
 }
 
 addUserName();
 
-let sendButton = document.querySelector('.send-button');
-sendButton.addEventListener('click', buildQuiz);
+function startGame() {
+  nameForm.style.opacity = '0';
+  quizContainer.style.display = 'inline-block';
+  quizContainer.style.display = 'inline-block';
+  buttonsNav.style.display = 'flex';
+  showSlide(currentSlide);
+}
 
+sendButton.addEventListener('click', validateName);
+
+function validateName() {
+let regex = /^([А-Я]{1}[а-я]{1,9}|[A-Z]{1}[a-z]{1,9})$/;
+userName.classList.remove('error');
+
+  if(!regex.test(userName.value)) {
+    event.preventDefault();
+    userName.classList.add('error');
+
+    let error = document.createElement('div');
+    error.className = 'error-block';
+    error.style.color = 'red';
+    error.innerHTML = 'Укажите корректное имя';
+    userName.parentElement.insertBefore(error, userName);
+  } else {
+    startGame();
+  }
+}
 
 
 
@@ -131,11 +151,8 @@ if(tar.tagName === 'INPUT') {
     }
     const radioButtons = e.currentTarget.querySelectorAll('.answer, input');
     radioButtons.forEach(button => button.setAttribute('disabled', 'disable'))
-    console.log(radioButtons);
   }
  }
-
-
 
  const setAnswerHandlers = () => {
    Array.from(quizContainer.querySelectorAll('.slide .answers')).forEach(answer => {
@@ -144,8 +161,6 @@ if(tar.tagName === 'INPUT') {
  }
 
 setAnswerHandlers();
-
-showSlide(currentSlide);
 
 function showNextSlide() {
   showSlide(currentSlide + 1);
@@ -162,5 +177,5 @@ function showResults() {
   previousButton.style.display = 'none';
   nextButton.style.display = 'none';
   submitButton.style.display = 'none';
-  resultsContainer.innerHTML = `Ваш результат ${numCorrect} из ${myQuestions.length}`}
+  resultsContainer.innerHTML = `${userName.value}, Ваш результат ${numCorrect} из ${myQuestions.length}`}
   submitButton.addEventListener('click', showResults);
