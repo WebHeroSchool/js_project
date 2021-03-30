@@ -73,7 +73,7 @@ function buildQuiz() {
 };
 buildQuiz();
 
-let nameForm = document.querySelector('.name-form');
+let nameForm = document.querySelector('.form');
 let sendButton = document.querySelector('.send-button');
 let userName = document.querySelector('.user-name');
 let buttonsNav = document.querySelector('.wrap-btn');
@@ -101,6 +101,7 @@ userName.classList.remove('error');
 
   if(!regex.test(userName.value)) {
     event.preventDefault();
+    event.stopPropagation();
     userName.classList.add('error');
 
     let error = document.createElement('div');
@@ -112,8 +113,6 @@ userName.classList.remove('error');
     startGame();
   }
 }
-
-
 
 const previousButton = document.querySelector('.button_previous');
 const nextButton = document.querySelector('.button_next');

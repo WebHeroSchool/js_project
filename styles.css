@@ -53,7 +53,7 @@ answer {
 }
 
 .wrap-btn {
-  display: flex;
+  /* display: flex; */
   justify-content: center;
 }
 
