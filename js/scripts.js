@@ -88,7 +88,6 @@ addUserName();
 function startGame() {
   nameForm.style.opacity = '0';
   quizContainer.style.display = 'inline-block';
-  quizContainer.style.display = 'inline-block';
   buttonsNav.style.display = 'flex';
   showSlide(currentSlide);
 }
@@ -123,6 +122,7 @@ function showSlide(n) {
   slides[currentSlide].classList.remove('active-slide');
   slides[n].classList.add('active-slide');
   currentSlide = n;
+
   if(currentSlide === 0){
     previousButton.style.display = 'none';
   } else{
@@ -135,7 +135,32 @@ function showSlide(n) {
     nextButton.style.display = 'block';
     submitButton.style.display = 'none';
   }
+timer()
 }
+
+function timer() {
+  minutes = 0;
+  seconds = 10;
+  function makeMeTwoDigits(n){
+    return (n < 10 ? "0" : "") + n;
+  }
+
+  let idInt = setInterval(function() {
+    document.querySelector('.time').innerHTML = makeMeTwoDigits(minutes) + ":" + makeMeTwoDigits(seconds);
+    if (seconds == 0) {
+      clearInterval(idInt);
+      slides[currentSlide].classList.add('done');
+      if (currentSlide === slides.length - 1) {
+        showResults();
+        return;
+      } else {
+        showNextSlide();
+      }
+    }
+    seconds--;
+  }, 1000);
+}
+
 const checkResults = (e) => {
 const tar = e.target;
 if(tar.tagName === 'INPUT') {
@@ -149,7 +174,7 @@ if(tar.tagName === 'INPUT') {
       tar.parentNode.style.color = 'red';
     }
     const radioButtons = e.currentTarget.querySelectorAll('.answer, input');
-    radioButtons.forEach(button => button.setAttribute('disabled', 'disable'))
+    radioButtons.forEach(button => button.setAttribute('disabled', 'disable'));
   }
  }
 
@@ -176,5 +201,18 @@ function showResults() {
   previousButton.style.display = 'none';
   nextButton.style.display = 'none';
   submitButton.style.display = 'none';
-  resultsContainer.innerHTML = `${userName.value}, Ваш результат ${numCorrect} из ${myQuestions.length}`}
+  resultsContainer.innerHTML = `${userName.value}, Ваш результат ${numCorrect} из ${myQuestions.length}`
+  restart()
+}
+
+function restart() {
+  let restart = document.querySelector('.button_restart');
+  restart.style.display = 'block';
+  restart.addEventListener('click', function() {
+    buildQuiz();
+    // showSlide(0);
+    startGame();
+  });
+}
+
   submitButton.addEventListener('click', showResults);
