@@ -139,26 +139,33 @@ timer()
 }
 
 function timer() {
-  minutes = 0;
-  seconds = 10;
+  let minutes = 0;
+  let seconds = 10;
+  let idInt = function() {
+    if (seconds >= 0) {
+    	document.querySelector('.time').innerHTML = makeMeTwoDigits(minutes) + ":" + makeMeTwoDigits(seconds);
+    	seconds--;
+	} else {
+    	slides[currentSlide].classList.add('done');
+    	clearInterval(timerId);
+    	if (currentSlide === slides.length - 1) {
+      		showResults();
+       		return;
+    	} else {
+      		showNextSlide();
+    	}
+    }
+   };
+  let timerId = setInterval(idInt, 1000);
   function makeMeTwoDigits(n){
     return (n < 10 ? "0" : "") + n;
   }
-
-  let idInt = setInterval(function() {
-    document.querySelector('.time').innerHTML = makeMeTwoDigits(minutes) + ":" + makeMeTwoDigits(seconds);
-    if (seconds == 0) {
-      clearInterval(idInt);
-      slides[currentSlide].classList.add('done');
-      if (currentSlide === slides.length - 1) {
-        showResults();
-        return;
-      } else {
-        showNextSlide();
-      }
-    }
-    seconds--;
-  }, 1000);
+    nextButton.addEventListener('click', function() {
+    	clearInterval(timerId);
+    });
+    previousButton.addEventListener('click', function() {
+    	clearInterval(timerId);
+    });
 }
 
 const checkResults = (e) => {
@@ -198,6 +205,7 @@ previousButton.addEventListener('click', showPreviousSlide);
 nextButton.addEventListener('click', showNextSlide);
 
 function showResults() {
+  document.querySelector('.time').innerHTML = '';
   previousButton.style.display = 'none';
   nextButton.style.display = 'none';
   submitButton.style.display = 'none';
@@ -209,10 +217,20 @@ function restart() {
   let restart = document.querySelector('.button_restart');
   restart.style.display = 'block';
   restart.addEventListener('click', function() {
-    buildQuiz();
-    // showSlide(0);
-    startGame();
+    document.location.reload();
   });
 }
 
   submitButton.addEventListener('click', showResults);
+
+
+// 1. Добавляем данные вопросов.
+// 2. Рисуем разметку слайдов.
+// 3. Показываем первый слайд.
+// 4. По нажатию на кнопки показываем либо предыдущий, либо следующий слайд.
+// 5. Переключаем слайды по таймеру.
+// 6. По нажатию на кнопки обнуляем таймер.
+// 7. Проверяем правильность ответов.
+// 8. Считаем правильные ответы и в конце выводим их количество.
+// 9. По кнопке обнуляем игру.
+// 10. Перед игрой спрашиваем имя игрока.
