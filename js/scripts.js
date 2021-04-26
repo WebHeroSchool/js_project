@@ -1,45 +1,9 @@
-const myQuestions = [
-  {
-    number: 1,
-    question: 'Назовите столицу Турции',
-    answers: {
-      a: 'Анталья',
-      b: 'Анкара',
-      c: 'Стамбул'
-    },
-    correctAnswer: 'b'
-  },
-  {
-    number: 2,
-    question: 'Назовите самую северную столицу мира',
-    answers: {
-      a: 'Рейкьявик',
-      b: 'Копенгаген',
-      c: 'Стокгольм'
-    },
-    correctAnswer: 'a'
-  },
-  {
-    number: 3,
-    question: 'Осло - стоица какой страны?',
-    answers: {
-      a: 'Финляндия',
-      b: 'Норвегия',
-      c: 'Дания'
-    },
-    correctAnswer: 'b'
-  },
-  {
-    number: 4,
-    question: 'Какой из городов не является столицей?',
-    answers: {
-      a: 'Хельсинки',
-      b: 'Гамбург',
-      c: 'Скопье'
-    },
-    correctAnswer: 'b'
-  }
-];
+const response = fetch('https://opentdb.com/api.php?amount=4&category=22&difficulty=easy&type=multiple')
+.then(response => response.json())
+.then(data => data)
+.then(data => console.log(data.results));
+
+
 
 let quizContainer = document.querySelector('.quiz');
 let resultsContainer = document.querySelector('.results');
@@ -48,7 +12,7 @@ let numCorrect = 0;
 
 function buildQuiz() {
   const output = [];
-  myQuestions.forEach(
+  response.forEach(
     (currentQuestion, questionNumber) => {
     const answers = [];
 
@@ -173,7 +137,7 @@ const tar = e.target;
 if(tar.tagName === 'INPUT') {
   const questionNumber = tar.name.slice(-1);
   const userAnswer = tar.value;
-  const isCorrect = myQuestions[questionNumber].correctAnswer === userAnswer;
+  const isCorrect = response[questionNumber].correctAnswer === userAnswer;
   if(isCorrect) {
     tar.parentNode.style.color = 'green';
     numCorrect++;
@@ -209,7 +173,7 @@ function showResults() {
   previousButton.style.display = 'none';
   nextButton.style.display = 'none';
   submitButton.style.display = 'none';
-  resultsContainer.innerHTML = `${userName.value}, Ваш результат ${numCorrect} из ${myQuestions.length}`
+  resultsContainer.innerHTML = `${userName.value}, Ваш результат ${numCorrect} из ${response.length}`
   restart()
 }
 
@@ -234,3 +198,4 @@ function restart() {
 // 8. Считаем правильные ответы и в конце выводим их количество.
 // 9. По кнопке обнуляем игру.
 // 10. Перед игрой спрашиваем имя игрока.
+// https://opentdb.com/api.php?amount=4&category=22&difficulty=easy&type=multiple
