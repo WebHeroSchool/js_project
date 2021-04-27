@@ -9,8 +9,8 @@
   </head>
   <body>
     <form action="#" class="form">
-        <input class="user-name" type="text" name="name" placeholder="Ваше имя" minlength="2" maxlength="10" required>
-        <button type="button" class='send-button'>Начать игру!</button>
+        <input class="user-name" type="text" name="name" placeholder="Name" minlength="2" maxlength="10" required>
+        <button type="button" class='send-button'>GO!</button>
     </form>
 
     <div class='quiz-container'>
@@ -18,11 +18,17 @@
      <div class='quiz'></div>
    </div>
    <div class='wrap-btn'>
-    <button type="button" class="button button_previous">Предыдущий вопрос</button>
-    <button type="button" class="button button_next">Следующий вопрос</button>
-    <button type="button" class="button button_results">Показать результаты</button>
-    <div class="results"></div>
-    <button type="button" class="button button_restart">Сыграть снова</button>
+    <button type="button" class="button button_previous">Previous question</button>
+    <button type="button" class="button button_next">Next question</button>
+    <button type="button" class="button button_results">Show results</button>
+    <div class="finish_info">
+      <div class="finish_info finish_info__results">
+        <div class="results"></div>
+      </div>
+      <div class="finish_info finish_info__button">
+        <button type="button" class="button button_restart">New game</button>
+      </div>
+    </div>
   </div>
     <script src="js/scripts.js" type="text/javascript" async></script>
   </body>

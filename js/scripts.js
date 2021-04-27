@@ -1,9 +1,7 @@
 async function getQuestions () {
   const response = await fetch('https://opentdb.com/api.php?amount=4&category=22&difficulty=easy&type=multiple')
-  .then(response => response.json())
-  .then(data => data)
-  .then(data => console.log(data.results));
-
+  const data = await response.json()
+  let questions = data.results;
   let quizContainer = document.querySelector('.quiz');
   let resultsContainer = document.querySelector('.results');
   let submitButton = document.querySelector('.button_results');
@@ -11,23 +9,25 @@ async function getQuestions () {
 
   function buildQuiz() {
     const output = [];
-    response.forEach(
+    questions.forEach(
       (currentQuestion, questionNumber) => {
-      const answers = [];
+      let answersArray = [].concat(currentQuestion.correct_answer, currentQuestion.incorrect_answers);
+      let answersMarkup = [];
+      answersArray.sort(() => Math.random() - 0.5);
 
-      for (letter in currentQuestion.answers) {
-        answers.push(
+      for (item in answersArray) {
+        answersMarkup.push(
           `<label>
-            <input type='radio' name='question${questionNumber}' value='${letter}'>
-            ${letter}:
-            ${currentQuestion.answers[letter]}
+            <input type='radio' name='question${questionNumber}' value='${answersArray[item]}'>
+            ${answersArray[item]}
           </label>`
         );
       }
+
       output.push(
         `<div class='slide'>
           <div class='question'> ${currentQuestion.question} </div>
-          <div class='answers'> ${answers.join('')} </div>
+          <div class='answers'> ${answersMarkup.join(' ')} </div>
         </div>`
       );
     }
@@ -136,7 +136,7 @@ async function getQuestions () {
   if(tar.tagName === 'INPUT') {
     const questionNumber = tar.name.slice(-1);
     const userAnswer = tar.value;
-    const isCorrect = response[questionNumber].correctAnswer === userAnswer;
+    const isCorrect = questions[questionNumber].correct_answer === userAnswer;
     if(isCorrect) {
       tar.parentNode.style.color = 'green';
       numCorrect++;
@@ -168,11 +168,13 @@ async function getQuestions () {
   nextButton.addEventListener('click', showNextSlide);
 
   function showResults() {
-    document.querySelector('.time').innerHTML = '';
+    // document.querySelector('.time').innerHTML = '';
+    document.querySelector('.time').style.display = 'none';
+    quizContainer.style.display = 'none';
     previousButton.style.display = 'none';
     nextButton.style.display = 'none';
     submitButton.style.display = 'none';
-    resultsContainer.innerHTML = `${userName.value}, Ваш результат ${numCorrect} из ${response.length}`
+    resultsContainer.innerHTML = `${userName.value}, your result is ${numCorrect} of ${questions.length}`
     restart()
   }
 
