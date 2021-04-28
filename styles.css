@@ -4,7 +4,26 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   font-family: 'Work Sans', sans-serif;
+  position: relative;
+}
 
+.form {
+  position: relative;
+  display: inline-block;
+  top: 300px;
+  left: 40%;
+  text-align: center;
+  z-index: 222
+}
+
+.user-name {
+  padding: 15px 25px;
+  opacity: 0.9;
+  width: 70%;
+  margin-bottom: 15px;
+  text-align: center;
+  font-size: 15px;
+  border-radius: 6px;
 }
 
 .error {
@@ -18,10 +37,43 @@ body {
   width: 10%;
 }
 
-.quiz-container {
+.send-button {
+  font-family: 'Work Sans', sans-serif;
+  background: white;
+  padding: 10px 25px;
+  border-radius: 6px;
+  font-size: 20px;
+}
+
+.send-button:hover {
+  opacity: 0.8;
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.slide {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.active-slide {
+  opacity: 1;
+  z-index: 2;
+}
+
+.quiz-container{
+  position: relative;
+  height: 200px;
   display: flex;
   justify-content: center;
+  margin-bottom: 300px;
 }
+
 .time {
   display: flex;
   justify-content: center;
@@ -33,34 +85,39 @@ body {
   position: absolute;
 }
 
-.send-button {
-  font-family: 'Work Sans', sans-serif;
-  padding: 8px 25px;
-  background: white;
-  opacity: 0.7;
-}
-
-.user-name {
-  padding: 8px 25px;
-}
-
 .question {
   display: flex;
   justify-content: center;
   text-align: center;
   background: white;
   opacity: .8;
-  font-size: 70px;
+  font-size: 60px;
   margin: 60px 146px 150px;
 }
 
 .answers {
   display: flex;
   justify-content: space-around;
+}
+
+label {
   background: white;
   opacity: .8;
-  font-size: 60px;
-  margin: 0 146px 50px;
+  font-size: 50px;
+}
+
+label:hover {
+  cursor: pointer;
+  opacity: 0.7;
+  transition: 0.5s;
+}
+
+.done label {
+  pointer-events: none;
+}
+
+input[type='radio'] {
+  display: none;
 }
 
 answer {
@@ -68,8 +125,10 @@ answer {
 }
 
 .wrap-btn {
-  /* display: flex; */
+  position: relative;
+  z-index: 999;
   justify-content: center;
+  display: none;
 }
 
 .button_previous, .button_next, .button_results, .button_restart {
@@ -91,24 +150,35 @@ answer {
   transition: 0.5s;
 }
 
-label:hover {
-  cursor: pointer;
-  opacity: 0.7;
-  transition: 0.5s;
-
-}
-input[type='radio'] {
-  display: none;
+.finish_info {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  bottom: 120px;
 }
 
 .results {
-  display: block;
   font-size: 50px;
   background: white;
   opacity: 0.8;
+  margin-right: 20px;
 }
 
 @media (max-width: 767px) {
+  .question {
+    font-size: 30px;
+  }
+
+  .answers {
+    font-size: 20px;
+  }
+
+  .results {
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1258px) {
   .question {
     font-size: 40px;
   }
@@ -122,7 +192,7 @@ input[type='radio'] {
   }
 }
 
-@media (min-width: 768px) and (max-width: 1258px) {
+@media (min-width: 1259px) and (max-width: 1759px) {
   .question {
     font-size: 50px;
   }
@@ -134,44 +204,4 @@ input[type='radio'] {
   .results {
     font-size: 30px;
   }
-}
-
-@media (min-width: 1259px) and (max-width: 1759px) {
-  .question {
-    font-size: 60px;
-  }
-
-  .answers {
-    font-size: 50px;
-  }
-
-  .results {
-    font-size: 40px;
-  }
-}
-
-.slide {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  z-index: 1;
-  opacity: 0;
-  transition: opacity 0.5s;
-}
-
-.done label {
-  pointer-events: none;
-}
-
-.active-slide {
-  opacity: 1;
-  z-index: 2;
-}
-
-.quiz-container{
-  position: relative;
-  height: 200px;
-  margin-top: 40px;
-  margin-bottom: 300px;
 }
