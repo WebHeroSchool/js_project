@@ -81,7 +81,7 @@ class Quiz {
           this.showNextSlide();
           nextButton.removeEventListener('click', nextSlide);
         };
-        
+
       let previousSlide = (e) => {
           console.log(e);
           e.preventDefault();
@@ -89,6 +89,7 @@ class Quiz {
           this.showPreviousSlide();
           previousButton.removeEventListener('click', previousSlide);
         };
+
 
       slides[currentSlide].classList.remove('active-slide');
       slides[n].classList.add('active-slide');
