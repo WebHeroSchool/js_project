@@ -77,8 +77,17 @@ class Quiz {
     }
 
     showSlide(n) {
-      let nextSlide = () => {
-          this.showNextSlide();
+      slides[currentSlide].classList.remove('active-slide');
+      // console.log('n');
+      // console.log(n);
+      slides[n].classList.add('active-slide');
+      currentSlide = n;
+      console.log('currentSlide');
+      console.log(currentSlide);
+
+      let nextSlide = (e) => {
+        console.log(e);
+          this.showNextSlide(n);
           nextButton.removeEventListener('click', nextSlide);
         };
 
@@ -86,15 +95,9 @@ class Quiz {
           console.log(e);
           e.preventDefault();
           e.stopPropagation();
-          this.showPreviousSlide();
+          this.showPreviousSlide(n);
           previousButton.removeEventListener('click', previousSlide);
         };
-
-
-      slides[currentSlide].classList.remove('active-slide');
-      slides[n].classList.add('active-slide');
-      currentSlide = n;
-      console.log(currentSlide);
 
       if(currentSlide === 0) {
         previousButton.style.display = 'none';
@@ -102,7 +105,7 @@ class Quiz {
         previousButton.style.display = 'block';
       }
 
-      if(currentSlide === slides.length-1){
+      if(currentSlide === slides.length-1) {
         nextButton.style.display = 'none';
         submitButton.style.display = 'block';
       } else{
@@ -111,7 +114,7 @@ class Quiz {
       }
 
     nextButton.addEventListener('click', nextSlide);
-    previousButton.addEventListener('click', previousSlide); //проблема с этим событием
+    previousButton.addEventListener('click', previousSlide);
     submitButton.addEventListener('click', this.showResults);
 
     this.timer();
@@ -129,12 +132,21 @@ class Quiz {
         	seconds--;
     	  } else {
         	slides[currentSlide].classList.add('done');
+          console.log(currentSlide);
         	clearInterval(timerId);
+          console.log(currentSlide === slides.length - 1);
         	if (currentSlide === slides.length - 1) {
           		self.showResults();
            		return;
         	} else {
-          	self.showNextSlide();
+            // const currentSlide = () => document.querySelector('.active-slide');
+            // const quiz = document.querySelector('.quiz');
+            // const indexForNewActiveClass = () => [].indexOf.call(
+            //   quiz.children,
+            //   currentSlide()
+            // );
+
+          	self.showNextSlide(currentSlide);
         	}
         }
       };
@@ -154,12 +166,18 @@ class Quiz {
       );
     }
 
-    showNextSlide() {
-      this.showSlide(currentSlide + 1);
+    showNextSlide(n) {
+      console.log('переключили вперед');
+      if (n < slides.length - 1) {
+        this.showSlide(n + 1);
+      }
     }
 
-    showPreviousSlide() {
-      this.showSlide(currentSlide - 1);
+    showPreviousSlide(n) {
+      console.log('переключили назад');
+      if (n > 0) {
+        this.showSlide(n - 1);
+      }
     }
 
     checkResults(e) {
