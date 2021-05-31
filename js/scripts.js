@@ -78,26 +78,9 @@ class Quiz {
 
     showSlide(n) {
       slides[currentSlide].classList.remove('active-slide');
-      // console.log('n');
-      // console.log(n);
       slides[n].classList.add('active-slide');
       currentSlide = n;
-      console.log('currentSlide');
-      console.log(currentSlide);
-
-      let nextSlide = (e) => {
-        console.log(e);
-          this.showNextSlide(n);
-          nextButton.removeEventListener('click', nextSlide);
-        };
-
-      let previousSlide = (e) => {
-          console.log(e);
-          e.preventDefault();
-          e.stopPropagation();
-          this.showPreviousSlide(n);
-          previousButton.removeEventListener('click', previousSlide);
-        };
+      console.log('currentSlide = ' + currentSlide);
 
       if(currentSlide === 0) {
         previousButton.style.display = 'none';
@@ -113,8 +96,6 @@ class Quiz {
         submitButton.style.display = 'none';
       }
 
-    nextButton.addEventListener('click', nextSlide);
-    previousButton.addEventListener('click', previousSlide);
     submitButton.addEventListener('click', this.showResults);
 
     this.timer();
@@ -139,12 +120,6 @@ class Quiz {
           		self.showResults();
            		return;
         	} else {
-            // const currentSlide = () => document.querySelector('.active-slide');
-            // const quiz = document.querySelector('.quiz');
-            // const indexForNewActiveClass = () => [].indexOf.call(
-            //   quiz.children,
-            //   currentSlide()
-            // );
 
           	self.showNextSlide(currentSlide);
         	}
@@ -226,12 +201,18 @@ async function getQuestions() {
   questions = data.results;
 
   quiz.buildQuiz(questions, quizContainer);
+  nextButton.addEventListener('click', () => {
+    quiz.showNextSlide(currentSlide);
+  });
+  previousButton.addEventListener('click', () => {
+    quiz.showPreviousSlide(currentSlide);
+  });
+
 }
 
 getQuestions();
 
-// 1.
-// 2. Добавляем данные вопросов.
+// 1. Добавляем данные вопросов.
 // 2. Рисуем разметку слайдов.
 // 3. Показываем первый слайд.
 // 4. По нажатию на кнопки показываем либо предыдущий, либо следующий слайд.
